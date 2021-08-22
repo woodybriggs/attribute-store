@@ -3,8 +3,8 @@ from fastapi.exceptions import HTTPException
 import pydantic
 from sqlalchemy import select, and_
 from sqlalchemy.ext.asyncio import AsyncSession
-from src.models import Attribute, BooleanAttribute, IntegerAttribute, FloatAttribute, StringAttribute
-from src.interfaces import *
+from ..models import Attribute, BooleanAttribute, IntegerAttribute, FloatAttribute, StringAttribute
+from ..interfaces import *
 from sqlalchemy.orm import with_polymorphic
 from sqlalchemy.exc import IntegrityError
 from pydantic import parse_obj_as
@@ -28,7 +28,7 @@ async def query_attribute_by_id(session: AsyncSession, id: int):
     return result.scalars().one()
 
 
-async def query_attribute_by_remote_type_id_id(session: AsyncSession, remote_reference: str, id: int) -> Attribute:
+async def query_attribute_by_remote_and_id(session: AsyncSession, remote_reference: str, id: int) -> Attribute:
     result = await session.execute(
         select(select_attribute)
             .where(
@@ -41,7 +41,7 @@ async def query_attribute_by_remote_type_id_id(session: AsyncSession, remote_ref
     return result.scalars().one()
 
 
-async def query_attribute_by_remote_type_id_key(session: AsyncSession, remote_reference: str, key: str) -> Attribute:
+async def query_attribute_by_remote_and_key(session: AsyncSession, remote_reference: str, key: str) -> Attribute:
     result = await session.execute(
         select(select_attribute)
             .where(
@@ -54,7 +54,7 @@ async def query_attribute_by_remote_type_id_key(session: AsyncSession, remote_re
     return result.scalars().one()
 
 
-async def query_attributes_by_remote_type_id(session: AsyncSession, remote_reference: str) -> List[Attribute]:
+async def query_attributes_by_remote(session: AsyncSession, remote_reference: str) -> List[Attribute]:
     result = await session.execute(
         select(select_attribute)
             .where(

@@ -1,11 +1,12 @@
 from sqlalchemy import Column, String, Boolean, ForeignKey, Integer, Float
-from src.db import Base
+from ..db import Base
+
 
 class Attribute(Base):
     __tablename__ = "attribute"
     id = Column(Integer, autoincrement=True, primary_key=True, unique=True, nullable=False)
     type = Column(String(length=256), nullable=False)
-    remote_reference = Column(String(256))
+    remote_reference = Column(String(256), nullable=False)
     key = Column(String(length=256), unique=True)
 
     __mapper_args__ = {

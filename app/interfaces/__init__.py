@@ -1,4 +1,4 @@
-from src.db import Base
+from ..db import Base
 from pydantic import BaseModel, StrictBool, StrictInt, StrictFloat
 from typing import Union
 
@@ -7,6 +7,7 @@ class Error(BaseModel):
     code: int
     message: str
     status: str
+
 
 class ErrorOut(BaseModel):
     error: Error
